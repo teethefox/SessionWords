@@ -1,0 +1,40 @@
+<html lang="en">
+        <head>
+            <title></title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        </head>
+        <body>
+            
+                <form action="process" method="POST">{% csrf_token %}
+        
+                        <label for='word'>Add a new word</label>
+                        <input type="text" name="content" value=""><br>
+                    
+                
+                        <label for="color">Choose Color:</label>
+                        <label><input type="radio" name="color" value="red">Red</label>
+                        <label><input checked="checked" type="radio" name="color" value="purple">Purple</label>
+                        <label><input type="radio" name="color" value="lightblue">Light Blue</label><br>
+        
+                    
+                        <label for="bigger">show in BIG fonts!</label>
+                        <input type="checkbox" name="bigger"><br>
+                    
+                    <input type="submit" value="Add to Session">
+                </form>
+        
+                <a href="/clear"><button>Clear Session</button></a>
+                {% if request.session.words %}
+                    {% for word in request.session.words %}
+                    <p><span style="color:{{ word.color }}" class="{{ word.big }}">{{word.content}}</span> ||added on {{ word.created_at }} ||</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <style>
+                .big{
+                    font-size:2em;
+                }
+            </style>
+        </body>
+    </html>
